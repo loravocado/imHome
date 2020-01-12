@@ -114,8 +114,8 @@ class ModalExample extends Component {
                onRequestClose = {() => { console.log("Modal has been closed.") } }>
 
                <View style = {styles.modal}>
-                   <View style={{flex:1, backgroundColor:'#22B8BC', alignItems:'center'}}>
-                     <Text style={{color:'white', marginTop:30, fontSize:20}}>Friends</Text>
+                   <View style={{flex:1, backgroundColor:'#22B8BC', alignItems:'center',  paddingBottom:10}}>
+                     <Text style={{color:'white', marginTop:30, fontSize:20}}>Add Your Friends</Text>
                    </View>
                    <View style={styles.container}>
                    <Button
@@ -126,7 +126,7 @@ class ModalExample extends Component {
                        }/>
                    </View>
                    <View style={{flex:10}}>
-                       <View style={{borderColor: '#22B8BC', borderBottomWidth:2, paddingTop:30, marginLeft:50, marginRight:50,flexDirection:'row', justifyContent:'space-between'}}>
+                       <View style={{borderColor: '#22B8BC', borderBottomWidth:2, paddingTop:20, marginLeft:50, marginRight:50,flexDirection:'row', justifyContent:'space-between'}}>
                            <TextInput
                             style={{ height: 40, width:270, color:'black'}}
                             onChangeText={friend => this.setState({ friend }) }
@@ -241,7 +241,7 @@ const styles = StyleSheet.create ({
       marginTop: 10
   },
    container: {
-       marginTop:10,
+       marginTop:20,
        marginLeft:100,
        marginRight:100,
        borderColor: '#22B8BC',
