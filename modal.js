@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Modal, Text, TouchableHighlight, Alert, View, StyleSheet, Button, TextInput, FlatList, Platform, TouchableOpacity} from 'react-native';
+import { Modal, Text, TouchableHighlight, Alert, View, StyleSheet, Button, TextInput, FlatList, Platform, TouchableOpacity, Divider} from 'react-native';
 
 var SampleArray = [];
 
@@ -24,8 +24,8 @@ class ModalExample extends Component {
 
 
    AddItemsToArray=()=>{
+
         SampleArray = SampleArray.concat(this.state.friend)
-        console.log(SampleArray)
 
 
 
@@ -93,7 +93,7 @@ class ModalExample extends Component {
                  </View>
                  <View style={{borderColor: '#22B8BC', borderBottomWidth:1, marginTop:30}}>
                      <TextInput
-                      style={{ height: 40, width:270, color:'#ADADAD' }}
+                      style={{ height: 30, width:270, color:'#ADADAD' }}
                       onChangeText={phone => this.setState({ phone })}
                       placeholder='Phone Number'
                       value={this.state.phone}
@@ -126,7 +126,7 @@ class ModalExample extends Component {
                        }/>
                    </View>
                    <View style={{flex:10}}>
-                       <View style={{borderColor: '#22B8BC', borderBottomWidth:1, paddingTop:30, marginLeft:30, marginRight:30,flexDirection:'row', justifyContent:'space-between'}}>
+                       <View style={{borderColor: '#22B8BC', borderBottomWidth:2, paddingTop:30, marginLeft:50, marginRight:50,flexDirection:'row', justifyContent:'space-between'}}>
                            <TextInput
                             style={{ height: 40, width:270, color:'black'}}
                             onChangeText={friend => this.setState({ friend }) }
@@ -134,18 +134,27 @@ class ModalExample extends Component {
                             value={this.state.friend}
 
                           />
-                            <TouchableHighlight onPress={() => {this.AddItemsToArray()}}>
+                            <TouchableOpacity onPress={() => {this.AddItemsToArray()}}>
                                 <Text style={{fontSize:30}}>+</Text>
-                            </TouchableHighlight>
+                            </TouchableOpacity>
                          </View>
-                         <View style={{margin:20}}>
+                         <View style={{marginLeft:40, marginRight:40, marginTop:5}}>
                             <FlatList
                               data={SampleArray}
+                              keyExtractor={item => item}
                               renderItem={({item}) =>(
-                                <View style={{margin:15, border:1}} >
-                                    <Text style={{fontSize:20}}>{item}</Text>
+                                <View style={{margin:15}} >
+                                    <Text style={{fontSize:20, paddingBottom:15,color:'#94D5D7' }}>{item}</Text>
+                                    <View
+                                      style={{
+                                        borderBottomColor: '#C9E7E8',
+                                        borderBottomWidth: 1,
+                                      }}
+                                    />
                                 </View>
-                            )}/>
+                            )}
+
+                            />
                           </View>
 
                    </View>
@@ -233,9 +242,14 @@ const styles = StyleSheet.create ({
   },
    container: {
        marginTop:10,
+       marginLeft:100,
+       marginRight:100,
+       borderColor: '#22B8BC',
+       borderWidth:1,
+       borderRadius:5,
 
      alignItems: "center",
-     backgroundColor: "#F5FCFF"
+     backgroundColor: "white"
    },
    welcome: {
      fontSize: 20,
