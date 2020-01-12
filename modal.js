@@ -15,13 +15,11 @@ class ModalExample extends Component {
       location: null,
       lat: null,
       lng: null,
-      locationMessage:'Enable Location'
-
+      wait: null,
+      locationText: "Start your adventure home!"
    }
    toggleModal(visible) {
       this.setState({ modalVisible: visible });
-      this.findCoordinates
-
    }
 
 
@@ -46,11 +44,19 @@ class ModalExample extends Component {
           this.setState({ lat });
           this.setState({ lng });
 
+          console.log(this.state.lat)
+          console.log(this.state.lng)
+          this.setState({
+          locationText: 'I have arrived home!'
+        })
+
         },
         error => Alert.alert(error.message),
         { enableHighAccuracy: true, timeout: 20000, maximumAge: 1000 },
         {enableHighAccuracy: true}
       );
+
+
     };
 
 
@@ -113,7 +119,7 @@ class ModalExample extends Component {
                    </View>
                    <View style={styles.container}>
                    <Button
-                     title="Find Current Location"
+                     title={this.state.locationText}
                      color="#22B8BC"
                      onPress={
                          this.findCoordinates
@@ -122,10 +128,11 @@ class ModalExample extends Component {
                    <View style={{flex:10}}>
                        <View style={{borderColor: '#22B8BC', borderBottomWidth:1, paddingTop:30, marginLeft:30, marginRight:30,flexDirection:'row', justifyContent:'space-between'}}>
                            <TextInput
-                            style={{ height: 40, width:270, color:'#ADADAD' }}
+                            style={{ height: 40, width:270, color:'black'}}
                             onChangeText={friend => this.setState({ friend }) }
                             placeholder={"Friend's Phone Number"}
                             value={this.state.friend}
+
                           />
                             <TouchableHighlight onPress={() => {this.AddItemsToArray()}}>
                                 <Text style={{fontSize:30}}>+</Text>
@@ -176,8 +183,30 @@ class ModalExample extends Component {
                            }),
                        }).then(res => res.json());
                        console.log(otherData);
-                         console.log(this.state.lat)
-                         console.log(this.state.lng)
+
+                       console.log("start 4s")
+                       const date = Date.now();
+                        let currentDate = null;
+                        do {
+                          currentDate = Date.now();
+                      } while (currentDate - date < 4000);
+                      console.log("4s over")
+                      this.findCoordinates
+                      let lastData = await fetch('https://benjaminkong.api.stdlib.com/imhome@dev/check_if_home/', {
+                         method: 'POST',
+                         headers: {
+                           Accept: 'application/json',
+                           'Content-Type': 'application/json',
+                         },
+                         body: JSON.stringify({
+                           phone: this.state.phone,
+                           start_latitude: this.state.lat,
+                           start_longitude: this.state.lng,
+                         }),
+                     }).then(res => res.json());
+                     console.log(lastData);
+
+
                        }}/>
                </View>
 
@@ -200,7 +229,7 @@ const styles = StyleSheet.create ({
       marginTop: 10
   },
    container: {
-     flex: 1,
+
      alignItems: "center",
      backgroundColor: "#F5FCFF"
    },
