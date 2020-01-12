@@ -16,7 +16,7 @@ class ModalExample extends Component {
       lat: null,
       lng: null,
       wait: null,
-      locationText: "Start your adventure home!"
+      locationText: "Enable Location!"
    }
    toggleModal(visible) {
       this.setState({ modalVisible: visible });
@@ -47,7 +47,7 @@ class ModalExample extends Component {
           console.log(this.state.lat)
           console.log(this.state.lng)
           this.setState({
-          locationText: 'I have arrived home!'
+          locationText: 'Get home safely! :)'
         })
 
         },
@@ -149,65 +149,68 @@ class ModalExample extends Component {
                           </View>
 
                    </View>
-                   <Button
-                     title="Notify"
-                     color="#22B8BC"
-                     onPress={async () => {
-                         let data = await fetch('https://benjaminkong.api.stdlib.com/imhome@dev/data_write/', {
-                           method: 'POST',
-                           headers: {
-                             Accept: 'application/json',
-                             'Content-Type': 'application/json',
-                           },
-                           body: JSON.stringify({
-                             address: this.state.address,
-                             contacts: SampleArray,
-                             name: this.state.name,
-                             phone: this.state.phone
-                           }),
+                   <View style={{backgroundColor:'#22B8BC', padding:10, fontSize:30}}>
+                       <Button
+                         title="Turn Notifications On"
+                         color="white"
+                         backgroundColor='#22B8BC'
+                         onPress={async () => {
+                             let data = await fetch('https://benjaminkong.api.stdlib.com/imhome@dev/data_write/', {
+                               method: 'POST',
+                               headers: {
+                                 Accept: 'application/json',
+                                 'Content-Type': 'application/json',
+                               },
+                               body: JSON.stringify({
+                                 address: this.state.address,
+                                 contacts: SampleArray,
+                                 name: this.state.name,
+                                 phone: this.state.phone
+                               }),
 
-                       }).then(res => res.json());
+                           }).then(res => res.json());
 
-                       console.log(data);
+                           console.log(data);
 
-                        let otherData = await fetch('https://benjaminkong.api.stdlib.com/imhome@dev/get_travel_time/', {
-                           method: 'POST',
-                           headers: {
-                             Accept: 'application/json',
-                             'Content-Type': 'application/json',
-                           },
-                           body: JSON.stringify({
-                             phone: this.state.phone,
-                             start_latitude: this.state.lat,
-                             start_longitude: this.state.lng,
-                           }),
-                       }).then(res => res.json());
-                       console.log(otherData);
+                            let otherData = await fetch('https://benjaminkong.api.stdlib.com/imhome@dev/get_travel_time/', {
+                               method: 'POST',
+                               headers: {
+                                 Accept: 'application/json',
+                                 'Content-Type': 'application/json',
+                               },
+                               body: JSON.stringify({
+                                 phone: this.state.phone,
+                                 start_latitude: this.state.lat,
+                                 start_longitude: this.state.lng,
+                               }),
+                           }).then(res => res.json());
+                           console.log(otherData);
 
-                       console.log("start 4s")
-                       const date = Date.now();
-                        let currentDate = null;
-                        do {
-                          currentDate = Date.now();
-                      } while (currentDate - date < 4000);
-                      console.log("4s over")
-                      this.findCoordinates
-                      let lastData = await fetch('https://benjaminkong.api.stdlib.com/imhome@dev/check_if_home/', {
-                         method: 'POST',
-                         headers: {
-                           Accept: 'application/json',
-                           'Content-Type': 'application/json',
-                         },
-                         body: JSON.stringify({
-                           phone: this.state.phone,
-                           start_latitude: this.state.lat,
-                           start_longitude: this.state.lng,
-                         }),
-                     }).then(res => res.json());
-                     console.log(lastData);
+                           console.log("start 4s")
+                           const date = Date.now();
+                            let currentDate = null;
+                            do {
+                              currentDate = Date.now();
+                          } while (currentDate - date < 4000);
+                          console.log("4s over")
+                          this.findCoordinates
+                          let lastData = await fetch('https://benjaminkong.api.stdlib.com/imhome@dev/check_if_home/', {
+                             method: 'POST',
+                             headers: {
+                               Accept: 'application/json',
+                               'Content-Type': 'application/json',
+                             },
+                             body: JSON.stringify({
+                               phone: this.state.phone,
+                               start_latitude: this.state.lat,
+                               start_longitude: this.state.lng,
+                             }),
+                         }).then(res => res.json());
+                         console.log(lastData);
 
 
-                       }}/>
+                           }}/>
+                       </View>
                </View>
 
             </Modal>
@@ -229,6 +232,7 @@ const styles = StyleSheet.create ({
       marginTop: 10
   },
    container: {
+       marginTop:10,
 
      alignItems: "center",
      backgroundColor: "#F5FCFF"
